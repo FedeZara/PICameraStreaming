@@ -10,9 +10,9 @@
         "pi",
         "mqtts"
     ],
-    "author": "Arvind Ravulavaru",
+    "author": "Federico Zarantonello",
     "private": true,
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "mqtt": "^2.18.8",
         "getmac": "^1.4.6"
