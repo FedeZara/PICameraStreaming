@@ -14,13 +14,16 @@ var client = mqtt.connect({
 });
 
 client.on('connect', function () {
-  console.log('Connected to Mosca at ' + config.mqtt.host + ' on port ' + config.mqtt.port);
-  client.subscribe('greet')
-  client.publish('greet', 'Hello TPSIT-IOT')
+  client.subscribe('api-engine');
 });
 
 client.on('message', function (topic, message) {
   // message is Buffer
-  console.log('topic >>>', topic);
-  console.log('message >>>', message.toString());
+  // console.log('topic >>>', topic);
+  // console.log('message >>>', message.toString());
+  if (topic === 'api-engine'){
+    var macAddress = message.toString();
+    console.log('Mac Address >> ', macAddress);
+    client.publish('rpi', 'Got Mac Address: ' + macAddress);
+  }
 });
