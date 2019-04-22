@@ -6,12 +6,15 @@
     "scripts": {
         "start": "node index.js"
     },
-    "keywords": ["pi", "mqtts"],
+    "keywords": [
+        "pi",
+        "mqtts"
+    ],
     "author": "Arvind Ravulavaru",
     "private": true,
     "license": "ISC",
     "dependencies": {
-        "mqtt": "^2.7.1",
-        "getmac": "^1.2.1"
+        "mqtt": "^2.18.8",
+        "getmac": "^1.4.6"
     }
 }
