@@ -14,7 +14,8 @@
     "private": true,
     "license": "MIT",
     "dependencies": {
+        "getmac": "^1.4.6",
         "mqtt": "^2.18.8",
-        "getmac": "^1.4.6"
+        "node-raspistill": "0.0.16"
     }
 }
