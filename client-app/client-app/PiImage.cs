@@ -8,7 +8,14 @@ namespace client_app
 {
     class PiImage
     {
-        public byte[] image;
-        public int time;
+        public BufferImage image;
+        public long time;
     }
+
+    class BufferImage
+    {
+        public string type;
+        public byte[] data;
+    }
+
 }
