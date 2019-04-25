@@ -175,8 +175,11 @@ namespace client_app
 
         private void WindowMAC_Closed(object sender, EventArgs e)
         {
-            timeoutConnection.Stop();
-            connectionTimer.Start();
+            if (timeoutConnection.Enabled)
+            {
+                timeoutConnection.Stop();
+                connectionTimer.Start();
+            }
         }
     }
 }
