@@ -26,7 +26,7 @@ namespace client_app
             infoLabel.Content = "Inserisci l'indirizzo MAC";
         }
 
-        void CLick(object sender, RoutedEventArgs e)
+        void Click(object sender, RoutedEventArgs e)
         {
 
         }
