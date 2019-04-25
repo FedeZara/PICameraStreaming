@@ -167,7 +167,8 @@ namespace client_app
 
         private void WindowMAC_Closed(object sender, EventArgs e)
         {
-            //quando la WindowMAC si chiude
+            timeoutConnection.Stop();
+            connectionTimer.Start();
         }
     }
 }
