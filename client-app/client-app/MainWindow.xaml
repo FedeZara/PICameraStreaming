@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:client_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="599.5" Width="720">
+        Title="MainWindow" Height="600" Width="1020">
     <Grid HorizontalAlignment="Right" Width="1012">
         <Image HorizontalAlignment="Left" Height="480" Margin="332,19,0,0" VerticalAlignment="Top" Width="640" Name="PiImage" />
         <Button x:Name="ConnectButton" Content="Inizia la visualizzazione dalla PICam" Click="ConnectionButton_Click" ClickMode="Release" HorizontalAlignment="Left" Margin="36,463,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
