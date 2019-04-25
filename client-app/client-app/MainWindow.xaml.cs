@@ -143,12 +143,20 @@ namespace client_app
 
                         Dispatcher.Invoke(delegate {
                             PiImage.Source = bitmapSource;
+                            DateTimeLabel.Content = RefreshDateTime(piImage.time).ToString();
+
                         });
                     }
                     break;
             }
 
             timeoutConnection.Start();
+        }
+
+        private DateTime RefreshDateTime(long Milliseconds)
+        {
+             DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0,0,DateTimeKind.Utc);
+            return StartingDateTime.AddMilliseconds(Milliseconds);
         }
 
         private void ConnectionButton_Click(object sender, RoutedEventArgs e)

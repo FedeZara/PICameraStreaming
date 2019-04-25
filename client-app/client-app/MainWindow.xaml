@@ -10,7 +10,7 @@
         <Image HorizontalAlignment="Left" Height="480" Margin="332,19,0,0" VerticalAlignment="Top" Width="640" Name="PiImage" />
         <Button x:Name="ConnectButton" Content="Inizia la visualizzazione dalla PICam" Click="ConnectionButton_Click" ClickMode="Release" HorizontalAlignment="Left" Margin="36,463,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
         <Button x:Name="MacButton" Content="Imposta MAC" Click="MacButton_Click" ClickMode="Release" Width="226" Height="36" RenderTransformOrigin="0.504,0.472" Margin="36,240,750,243"></Button>
-        <Label Content="Data e ora dell' immagine" HorizontalAlignment="Left" Margin="36,19,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
+        <Label Content="Data e ora dell' immagine" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="36,19,0,0" VerticalAlignment="Top" Width="226" Height="36" Name="DateTimeLabel" FontSize="13"/>
     </Grid>
 
 </Window>
