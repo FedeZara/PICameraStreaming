@@ -10,5 +10,6 @@
         <Label x:Name="infoLabel" Width="300" Height="25" VerticalAlignment="Top" Margin="15" TextBlock.TextAlignment="Center"></Label>
         <TextBox x:Name="MACadd" Width="300" Height="40" TextAlignment="Center" Text="XX-XX-XX-XX-XX-XX" VerticalContentAlignment="Center" FontSize="20"/>
         <Button x:Name="MacButton" Content="Imposta MAC" Click="Click" ClickMode="Press" RenderTransformOrigin="0.478,0.516" Margin="108,135,109.333,57.667" />
+        <Label Content="Inserisci il MAC del dispositivo a cui ti vuoi connettere" HorizontalAlignment="Left" Margin="21,57,0,0" VerticalAlignment="Top" Width="300"/>
     </Grid>
 </Window>
