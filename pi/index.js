@@ -29,7 +29,7 @@ client.on('connect', function() {
     client.subscribe('rpi');
 });
 
-var noImage = fs.readFileSync('images/no-image.jpg');
+var noImage = fs.readFileSync(__dirname + "/images/no-image.jpg");
 
 var handshake1Arrived = false, handshake3Arrived = false;
 	

@@ -1,0 +1,2 @@
+sudo mosca -c /home/pi/Desktop/'TPSIT IOT'/broker -v &
+sudo node /home/pi/Desktop/'TPSIT IOT'/pi/index.js < /dev/null &
