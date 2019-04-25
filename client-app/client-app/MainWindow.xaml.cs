@@ -68,10 +68,10 @@ namespace client_app
 
                 Handshake();
             }
-            catch(Exception)
+            catch (Exception)
             {
 
-            }            
+            }
         }
 
         protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
@@ -88,7 +88,7 @@ namespace client_app
             {
                 MqttClient.Disconnect();
             }
-            catch(Exception) { }
+            catch (Exception) { }
 
             connectionTimer.Start();
         }
@@ -102,19 +102,23 @@ namespace client_app
             timeoutConnection.Start();
         }
 
-        
+
         protected override void OnClosed(EventArgs e)
         {
-            MqttClient.Disconnect();
-
-            //start reversed one-way handshake phase
-            MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("rhandshake"));
+            try
+            {
+                //start reversed one-way handshake phase
+                MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("rhandshake"));
+                MqttClient.Disconnect();
+            }
+            catch (Exception) { }
 
             base.OnClosed(e);
             App.Current.Shutdown();
+            Environment.Exit(0);
         }
 
-        
+
         void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             timeoutConnection.Stop();
@@ -134,11 +138,11 @@ namespace client_app
                     PiImage piImage = JsonConvert.DeserializeObject<PiImage>(ReceivedMessage);
                     using (var ms = new MemoryStream(piImage.image.data))
                     {
-                        JpegBitmapDecoder decoder = new JpegBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                        var decoder = BitmapDecoder.Create(ms,
+                            BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                         BitmapSource bitmapSource = decoder.Frames[0];
 
-                        Dispatcher.Invoke(delegate { 
-                        
+                        Dispatcher.Invoke(delegate {
                             // Set Image.Source  
                             PiImage.Source = bitmapSource;
                         });
@@ -154,7 +158,7 @@ namespace client_app
             connectionTimer.Start();
         }
 
-       
+
 
         void MacButton_Click(object sender, RoutedEventArgs e)
         {
@@ -163,3 +167,5 @@ namespace client_app
         }
     }
 }
+
+
