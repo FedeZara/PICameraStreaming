@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows;
@@ -29,8 +30,9 @@ namespace client_app
         MqttClient MqttClient;
         string clientId;
         public static string macPi = "b8-27-eb-df-ac-b7";
-        Timer connectionTimer;
-        Timer timeoutConnection;
+        System.Timers.Timer connectionTimer;
+        System.Timers.Timer timeoutConnection;
+        SemaphoreSlim timeoutConnectionSemaphore = new SemaphoreSlim(1, 1);
 
 
         public string riceviMac; //mac passato dalla finestra WindowsMAC
@@ -39,12 +41,12 @@ namespace client_app
         {
             InitializeComponent();
 
-            connectionTimer = new Timer(1000);
+            connectionTimer = new System.Timers.Timer(1000);
             connectionTimer.Elapsed += connectionTimer_Elapsed;
             connectionTimer.AutoReset = true;
             connectionTimer.Enabled = false;
 
-            timeoutConnection = new Timer(10000);
+            timeoutConnection = new System.Timers.Timer(10000);
             timeoutConnection.Elapsed += timeoutConnection_Elapsed;
             timeoutConnection.AutoReset = false;
             timeoutConnection.Enabled = false;
@@ -118,8 +120,9 @@ namespace client_app
         }
 
 
-        void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+        async void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
+            await timeoutConnectionSemaphore.WaitAsync();
             timeoutConnection.Stop();
             string Topic = e.Topic;
 
@@ -151,12 +154,13 @@ namespace client_app
             }
 
             timeoutConnection.Start();
+            timeoutConnectionSemaphore.Release();
         }
 
         private DateTime RefreshDateTime(long Milliseconds)
         {
-             DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0,0,DateTimeKind.Utc);
-            return StartingDateTime.AddMilliseconds(Milliseconds);
+            DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0,0,DateTimeKind.Utc);
+                return StartingDateTime.AddMilliseconds(Milliseconds);
         }
 
         private void ConnectionButton_Click(object sender, RoutedEventArgs e)
@@ -173,13 +177,15 @@ namespace client_app
             windowMAC.Show();
         }
 
-        private void WindowMAC_Closed(object sender, EventArgs e)
+        private async void WindowMAC_Closed(object sender, EventArgs e)
         {
+            await timeoutConnectionSemaphore.WaitAsync();
             if (timeoutConnection.Enabled)
             {
                 timeoutConnection.Stop();
                 connectionTimer.Start();
             }
+            timeoutConnectionSemaphore.Release();
         }
     }
 }
