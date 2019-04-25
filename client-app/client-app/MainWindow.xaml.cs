@@ -28,7 +28,7 @@ namespace client_app
     {
         MqttClient MqttClient;
         string clientId;
-        string macPi = "b8-27-eb-df-ac-b7";
+        public static string macPi = "b8-27-eb-df-ac-b7";
         Timer connectionTimer;
         Timer timeoutConnection;
 
@@ -163,7 +163,13 @@ namespace client_app
         void MacButton_Click(object sender, RoutedEventArgs e)
         {
             WindowMAC windowMAC = new WindowMAC();
+            windowMAC.Closed += WindowMAC_Closed;
             windowMAC.Show();
+        }
+
+        private void WindowMAC_Closed(object sender, EventArgs e)
+        {
+            //quando la WindowMAC si chiude
         }
     }
 }
