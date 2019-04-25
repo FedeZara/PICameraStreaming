@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:client_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="520" Width="1020">
-    <Image HorizontalAlignment="Left" Height="480" Margin="196,100,0,-91" VerticalAlignment="Top" Width="640"
-           Name="PiImage" />
+        Title="MainWindow" Height="550" Width="1020">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="480" Margin="332,19,0,0" VerticalAlignment="Top" Width="640" Name="PiImage" />
+        <Button Content="Inizia la visualizzazione dalla PICam" HorizontalAlignment="Left" Margin="36,463,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
+        <TextBox HorizontalAlignment="Left" Height="60" Margin="36,19,0,0" TextWrapping="Wrap" Text="Data e ora dell'immagine" VerticalAlignment="Top" Width="281" TextChanged="TextBox_TextChanged"/>
+    </Grid>
+
 </Window>
