@@ -79,7 +79,7 @@ namespace client_app
             // warn the user the user that he should restart the pi
             BitmapImage image = new BitmapImage();
             image.BeginInit();
-            image.UriSource = new Uri("C:\\Users\niko_\\source\repos\\TPSIT-IOT\\client-app\\client-app\\Resources\\ErroreDiConnesione.png");
+            image.UriSource = new Uri("./client-app/Resources/ErroreDiConnesione.png");
             image.EndInit();
             PiImage.Source = image;
             // reconnect
