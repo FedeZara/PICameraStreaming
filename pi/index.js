@@ -52,12 +52,13 @@ client.on('message', function(topic, message) {
 });
 
 function startStreaming() {
-    raspistill
+    /*raspistill
         .timelapse(100, 0, function(image) { // every 100ms ~~FOREVER~~
             var data2Send = {
-				image: image
+				image: image,
+				time: (new Date()).getTime()
             };
-
+			console.log(image);
             client.publish('image', JSON.stringify(data2Send));
             console.log(JSON.stringify(data2Send), 'published');
         })
@@ -66,7 +67,8 @@ function startStreaming() {
         })
         .catch(function(err) {
             console.log('Error', err);
-        });
+        });*/
+    
 }
 
 function stopStreaming(){
