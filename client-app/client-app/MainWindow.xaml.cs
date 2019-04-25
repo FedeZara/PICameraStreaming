@@ -75,8 +75,13 @@ namespace client_app
         protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
         {
             // warn the user the user that he should restart the pi
-
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri("C:\\Users\niko_\\source\repos\\TPSIT-IOT\\client-app\\client-app\\Resources\\ErroreDiConnesione.png");
+            image.EndInit();
+            PiImage.Source = image;
             // reconnect
+
             try
             {
                 MqttClient.Disconnect();
