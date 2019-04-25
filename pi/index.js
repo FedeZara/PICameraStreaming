@@ -1,6 +1,8 @@
 var config = require('./config.js');
 var mqtt = require('mqtt');
 var Raspistill = require('node-raspistill').Raspistill;
+var jpeg = require('jpeg-js');
+var fs = require('fs');
 
 
 var raspistill = new Raspistill({
@@ -27,6 +29,8 @@ client.on('connect', function() {
     client.subscribe('rpi');
 });
 
+var noImage = fs.readFileSync('images/no-image.jpg');
+
 var handshake1Arrived = false, handshake3Arrived = false;
 	
 client.on('message', function(topic, message) {
@@ -52,8 +56,11 @@ client.on('message', function(topic, message) {
 });
 
 function startStreaming() {
-    /*raspistill
+    raspistill
         .timelapse(100, 0, function(image) { // every 100ms ~~FOREVER~~
+			if(image.byteLength === 0){
+				image = noImage;
+			}
             var data2Send = {
 				image: image,
 				time: (new Date()).getTime()
@@ -67,7 +74,7 @@ function startStreaming() {
         })
         .catch(function(err) {
             console.log('Error', err);
-        });*/
+        });
     
 }
 
