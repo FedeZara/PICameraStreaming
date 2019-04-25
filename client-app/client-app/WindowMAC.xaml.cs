@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace client_app
 {
     /// <summary>
@@ -22,6 +23,12 @@ namespace client_app
         public WindowMAC()
         {
             InitializeComponent();
+            infoLabel.Content = "Inserisci l'indirizzo MAC";
+        }
+
+        void CLick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

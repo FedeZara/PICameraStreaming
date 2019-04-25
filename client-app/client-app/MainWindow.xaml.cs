@@ -33,6 +33,8 @@ namespace client_app
         Timer timeoutConnection;
 
 
+        public string riceviMac; //mac passato dalla finestra WindowsMAC
+
         public MainWindow()
         {
             InitializeComponent();
