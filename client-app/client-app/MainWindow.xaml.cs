@@ -33,6 +33,8 @@ namespace client_app
         Timer timeoutConnection;
 
 
+        public string riceviMac; //mac passato dalla finestra WindowsMAC
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,7 +42,7 @@ namespace client_app
             connectionTimer = new Timer(1000);
             connectionTimer.Elapsed += connectionTimer_Elapsed;
             connectionTimer.AutoReset = true;
-            connectionTimer.Enabled = true;
+            connectionTimer.Enabled = false;
 
             timeoutConnection = new Timer(10000);
             timeoutConnection.Elapsed += timeoutConnection_Elapsed;
@@ -130,7 +132,7 @@ namespace client_app
 
                 case "image":
                     PiImage piImage = JsonConvert.DeserializeObject<PiImage>(ReceivedMessage);
-                    using (var ms = new MemoryStream(piImage.image))
+                    using (var ms = new MemoryStream(piImage.image.data))
                     {
                         JpegBitmapDecoder decoder = new JpegBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
                         BitmapSource bitmapSource = decoder.Frames[0];
@@ -147,14 +149,14 @@ namespace client_app
             timeoutConnection.Start();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ConnectionButton_Click(object sender, RoutedEventArgs e)
         {
-
+            connectionTimer.Start();
         }
 
        
 
-        void OnCLickMAC(object sender, RoutedEventArgs e)
+        void MacButton_Click(object sender, RoutedEventArgs e)
         {
             WindowMAC windowMAC = new WindowMAC();
             windowMAC.Show();
