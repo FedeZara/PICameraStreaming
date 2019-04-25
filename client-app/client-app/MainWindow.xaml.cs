@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Timers;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
@@ -28,29 +29,71 @@ namespace client_app
         MqttClient MqttClient;
         string clientId;
         string macPi = "b8-27-eb-df-ac-b7";
+        Timer connectionTimer;
+        Timer timeoutConnection;
 
 
         public MainWindow()
         {
             InitializeComponent();
 
+            connectionTimer = new Timer(1000);
+            connectionTimer.Elapsed += connectionTimer_Elapsed;
+            connectionTimer.AutoReset = true;
+            connectionTimer.Enabled = true;
 
-            string BrokerAddress = IPMACMapper.FindIPFromMacAddress(macPi);
-
-            MqttClient = new MqttClient(BrokerAddress, 8883, false, MqttSslProtocols.None, null, null);
-            
-            MqttClient.MqttMsgPublishReceived += MqttClient_MqttMsgPublishReceived;
-            
-            clientId = Guid.NewGuid().ToString();
-
-            MqttClient.Connect(clientId, clientId, clientId);
-            MqttClient.Subscribe(new string[] { "image", "client-app" }, new byte[] { 0, 0 });
-
-            //start three-way handshake phase
-            MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("handshake1"));
+            timeoutConnection = new Timer(10000);
+            timeoutConnection.Elapsed += timeoutConnection_Elapsed;
+            timeoutConnection.AutoReset = false;
+            timeoutConnection.Enabled = false;
         }
 
+        protected void connectionTimer_Elapsed(object source, ElapsedEventArgs e)
+        {
+            try
+            {
+                string BrokerAddress = IPMACMapper.FindIPFromMacAddress(macPi);
 
+                MqttClient = new MqttClient(BrokerAddress, 8883, false, MqttSslProtocols.None, null, null);
+
+                MqttClient.MqttMsgPublishReceived += MqttClient_MqttMsgPublishReceived;
+
+                clientId = Guid.NewGuid().ToString();
+
+                MqttClient.Connect(clientId, clientId, clientId);
+
+                connectionTimer.Stop();
+
+                Handshake();
+            }
+            catch(Exception)
+            {
+
+            }            
+        }
+
+        protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
+        {
+            // warn the user the user that he should restart the pi
+
+            // reconnect
+            try
+            {
+                MqttClient.Disconnect();
+            }
+            catch(Exception) { }
+
+            connectionTimer.Start();
+        }
+
+        protected void Handshake()
+        {
+            MqttClient.Subscribe(new string[] { "image", "client-app" }, new byte[] { 0, 0 });
+            //start three-way handshake phase
+            MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("handshake1"));
+
+            timeoutConnection.Start();
+        }
 
         
         protected override void OnClosed(EventArgs e)
@@ -67,6 +110,7 @@ namespace client_app
         
         void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
+            timeoutConnection.Stop();
             string Topic = e.Topic;
 
             string ReceivedMessage = Encoding.UTF8.GetString(e.Message);
@@ -94,6 +138,8 @@ namespace client_app
                     }
                     break;
             }
+
+            timeoutConnection.Start();
         }
     }
 }
