@@ -33,7 +33,7 @@ namespace client_app
         Timer timeoutConnection;
 
 
-        public string riceviMac; //mac passato dalla finestra WindowsMAC
+        public string preMac; //mac passato dalla finestra WindowsMAC
 
         public MainWindow()
         {
@@ -168,6 +168,7 @@ namespace client_app
 
         void MacButton_Click(object sender, RoutedEventArgs e)
         {
+            preMac = macPi;
             WindowMAC windowMAC = new WindowMAC();
             windowMAC.Closed += WindowMAC_Closed;
             windowMAC.Show();
@@ -175,7 +176,7 @@ namespace client_app
 
         private void WindowMAC_Closed(object sender, EventArgs e)
         {
-            if (timeoutConnection.Enabled)
+            if (timeoutConnection.Enabled && !(macPi == preMac))
             {
                 timeoutConnection.Stop();
                 connectionTimer.Start();
