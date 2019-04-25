@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:client_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="1020">
-    <Grid>
+        Title="MainWindow" Height="599.5" Width="720">
+    <Grid HorizontalAlignment="Right" Width="1012">
         <Image HorizontalAlignment="Left" Height="480" Margin="332,19,0,0" VerticalAlignment="Top" Width="640" Name="PiImage" />
-        <Button x:Name="ConnectButton" Content="Inizia la visualizzazione dalla PICam" Click="ConnectionButton_Click" ClickMode="Release" HorizontalAlignment="Left" Margin="36,463,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
-        <Button x:Name="MacButton" Content="Imposta MAC" Click="MacButton_Click" ClickMode="Release" Width="226" RenderTransformOrigin="0.504,0.472" Margin="36,240,750,239"/>
-        <Label Content="Data e ora dell' immagine" HorizontalAlignment="Left" Margin="36,19,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
+        <Button x:Name="ConnectButton" Content="Inizia trasmissione" Click="ConnectionButton_Click" ClickMode="Release" HorizontalAlignment="Left" Margin="848,513,0,0" VerticalAlignment="Top" Width="124" Height="36"/>
+        <Button x:Name="MacButton" Content="Imposta MAC" Click="MacButton_Click" ClickMode="Release" RenderTransformOrigin="0.504,0.472" Margin="718,513,184,20"/>
+        <Label Content="Data e ora dell' immagine" HorizontalAlignment="Left" Margin="356,513,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
     </Grid>
 
 </Window>
