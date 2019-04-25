@@ -28,7 +28,7 @@ namespace client_app
 
         void Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }

@@ -77,11 +77,7 @@ namespace client_app
         protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
         {
             // warn the user the user that he should restart the pi
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.UriSource = new Uri("C:\\Users\niko_\\source\repos\\TPSIT-IOT\\client-app\\client-app\\Resources\\ErroreDiConnesione.png");
-            image.EndInit();
-            PiImage.Source = image;
+            
             // reconnect
 
             try
@@ -104,14 +100,18 @@ namespace client_app
 
         
         protected override void OnClosed(EventArgs e)
-        {
-            MqttClient.Disconnect();
-
-            //start reversed one-way handshake phase
-            MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("rhandshake"));
+        {          
+            try
+            {
+                //start reversed one-way handshake phase
+                MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("rhandshake"));
+                MqttClient.Disconnect();
+            }
+            catch (Exception) { }
 
             base.OnClosed(e);
             App.Current.Shutdown();
+            Environment.Exit(0);
         }
 
         
@@ -134,11 +134,11 @@ namespace client_app
                     PiImage piImage = JsonConvert.DeserializeObject<PiImage>(ReceivedMessage);
                     using (var ms = new MemoryStream(piImage.image.data))
                     {
-                        JpegBitmapDecoder decoder = new JpegBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                        var decoder = BitmapDecoder.Create(ms,
+                            BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                         BitmapSource bitmapSource = decoder.Frames[0];
 
-                        Dispatcher.Invoke(delegate { 
-                        
+                        Dispatcher.Invoke(delegate {
                             // Set Image.Source  
                             PiImage.Source = bitmapSource;
                         });
