@@ -35,7 +35,7 @@ namespace client_app
         SemaphoreSlim timeoutConnectionSemaphore = new SemaphoreSlim(1, 1);
 
 
-        public string riceviMac; //mac passato dalla finestra WindowsMAC
+        public string preMac; //mac passato dalla finestra WindowsMAC
 
         public MainWindow()
         {
@@ -172,6 +172,7 @@ namespace client_app
 
         void MacButton_Click(object sender, RoutedEventArgs e)
         {
+            preMac = macPi;
             WindowMAC windowMAC = new WindowMAC();
             windowMAC.Closed += WindowMAC_Closed;
             windowMAC.Show();
