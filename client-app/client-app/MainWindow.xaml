@@ -9,7 +9,8 @@
     <Grid>
         <Image HorizontalAlignment="Left" Height="480" Margin="332,19,0,0" VerticalAlignment="Top" Width="640" Name="PiImage" />
         <Button Content="Inizia la visualizzazione dalla PICam" HorizontalAlignment="Left" Margin="36,463,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
-        <TextBox HorizontalAlignment="Left" Height="60" Margin="36,19,0,0" TextWrapping="Wrap" Text="Data e ora dell'immagine" VerticalAlignment="Top" Width="281" TextChanged="TextBox_TextChanged"/>
+        <Button x:Name="MacButton" Content="Imposta MAC" Click="OnCLickMAC" ClickMode="Press" Width="226" Height="36" RenderTransformOrigin="0.504,0.472" Margin="36,240,750,243"></Button>
+        <Label Content="Data e ora dell' immagine" HorizontalAlignment="Left" Margin="36,19,0,0" VerticalAlignment="Top" Width="226" Height="36"/>
     </Grid>
 
 </Window>

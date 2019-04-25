@@ -101,9 +101,12 @@ namespace client_app
 
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+       
 
+        void OnCLickMAC(object sender, RoutedEventArgs e)
+        {
+            WindowMAC windowMAC = new WindowMAC();
+            windowMAC.Show();
         }
     }
 }
