@@ -73,17 +73,15 @@ namespace client_app
 
             }
         }
-
         protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
         {
             // warn the user the user that he should restart the pi
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.UriSource = new Uri("./client-app/Resources/ErroreDiConnesione.png");
-            image.EndInit();
-            PiImage.Source = image;
-            // reconnect
+            Dispatcher.Invoke(delegate
+            {
+                PiImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ErroreDiConnessione.png"));
+            }); 
 
+            // reconnect
             try
             {
                 MqttClient.Disconnect();
@@ -96,6 +94,7 @@ namespace client_app
         protected void Handshake()
         {
             MqttClient.Subscribe(new string[] { "image", "client-app" }, new byte[] { 0, 0 });
+            
             //start three-way handshake phase
             MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("handshake1"));
 
@@ -143,7 +142,6 @@ namespace client_app
                         BitmapSource bitmapSource = decoder.Frames[0];
 
                         Dispatcher.Invoke(delegate {
-                            // Set Image.Source  
                             PiImage.Source = bitmapSource;
                         });
                     }
