@@ -33,6 +33,7 @@ namespace client_app
         System.Timers.Timer connectionTimer;
         System.Timers.Timer timeoutConnection;
         SemaphoreSlim timeoutConnectionSemaphore = new SemaphoreSlim(1, 1);
+        int numDots = 0;
 
 
         public string preMac; //mac passato dalla finestra WindowsMAC
@@ -40,6 +41,7 @@ namespace client_app
         public MainWindow()
         {
             InitializeComponent();
+            
 
             connectionTimer = new System.Timers.Timer(1000);
             connectionTimer.Elapsed += connectionTimer_Elapsed;
@@ -54,6 +56,19 @@ namespace client_app
 
         protected void connectionTimer_Elapsed(object source, ElapsedEventArgs e)
         {
+            Dispatcher.Invoke(delegate
+            {
+                numDots++;
+                if(numDots == 4)
+                {
+                    numDots = 0;
+                    LoadingLabel.Content = "Connessione in corso";
+                }
+                else
+                {
+                    LoadingLabel.Content += ".";
+                }
+            });
             try
             {
                 string BrokerAddress = IPMACMapper.FindIPFromMacAddress(macPi);
@@ -77,7 +92,7 @@ namespace client_app
         }
         protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
         {
-            // warn the user the user that he should restart the pi
+            // warn the user that he should restart the pi
             Dispatcher.Invoke(delegate
             {
                 PiImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ErroreDiConnessione.png"));
@@ -133,6 +148,7 @@ namespace client_app
                     if (ReceivedMessage == "handshake2")
                     {
                         MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("handshake3"));
+                        LoadingLabel.Content = "";
                     }
                     break;
 
@@ -165,6 +181,7 @@ namespace client_app
 
         private void ConnectionButton_Click(object sender, RoutedEventArgs e)
         {
+            LoadingLabel.Content = "Connessione in corso";
             connectionTimer.Start();
         }
 
@@ -181,7 +198,7 @@ namespace client_app
         private async void WindowMAC_Closed(object sender, EventArgs e)
         {
             await timeoutConnectionSemaphore.WaitAsync();
-            if (timeoutConnection.Enabled)
+            if (timeoutConnection.Enabled && preMac != macPi)
             {
                 timeoutConnection.Stop();
                 connectionTimer.Start();
