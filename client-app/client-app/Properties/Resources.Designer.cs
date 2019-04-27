@@ -73,9 +73,9 @@ namespace client_app.Properties {
         /// <summary>
         ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImmagineDefault {
+        internal static System.Drawing.Bitmap loader {
             get {
-                object obj = ResourceManager.GetObject("ImmagineDefault", resourceCulture);
+                object obj = ResourceManager.GetObject("loader", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
