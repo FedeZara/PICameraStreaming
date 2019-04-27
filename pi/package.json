@@ -15,10 +15,7 @@
     "license": "MIT",
     "dependencies": {
         "fs": "0.0.1-security",
-<<<<<<< HEAD
         "jpeg-js": "^0.3.4",
-=======
->>>>>>> 0d661acad10bc49b6359d0106ba1718429e0ed8b
         "mqtt": "^2.18.8",
         "node-raspistill": "^0.0.16"
     }
