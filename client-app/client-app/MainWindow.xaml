@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:client_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="609" Width="712.5">
+        Title="Pi Camera" Height="609" Width="712.5" Icon="Resources/raspberry-logo.ico">
     <Grid HorizontalAlignment="Right" Width="704" Background="#FF252525">
         <!-- 640 x 480-->
         <Image HorizontalAlignment="Left" Height="480" Margin="30,24,0,0" VerticalAlignment="Top" Width="640" Name="PiImage" />

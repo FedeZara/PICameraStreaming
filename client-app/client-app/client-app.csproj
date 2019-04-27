@@ -119,9 +119,7 @@
     <Resource Include="Resources\ErroreDiConnessione.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\loader.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Resource Include="Resources\raspberry-logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:client_app"
         mc:Ignorable="d"
-        Title="WindowMAC" Height="139.462" Width="301.937">
+        Title="Imposta MAC" Height="139.462" Width="301.937" Icon="Resources/raspberry-logo.ico">
     <Grid Background="#FF252525" Margin="0,0,0,-11">
         <TextBox x:Name="MACadd" TextAlignment="Center" Text="b8-27-eb-df-ac-b7" VerticalContentAlignment="Center"  Foreground="#FF252525" Background="#FFDADADA" Margin="128,22,10,56" FontSize="16"/>
         <Button x:Name="MacButton" Content="Salva" Click="Click" ClickMode="Press" RenderTransformOrigin="0.478,0.516" FontSize="14" Margin="223,67,10,18" Background="#FFDADADA" Foreground="#FF252525" />
