@@ -3,12 +3,11 @@ var mqtt = require('mqtt');
 var Raspistill = require('node-raspistill').Raspistill;
 var fs = require('fs');
 
-
 var raspistill = new Raspistill({
     noFileSave: true,
     encoding: 'jpg',
-    width: 640,
-    height: 480
+    width: 320,
+    height: 240
 });
 
 // connect to MQTT broker
@@ -32,6 +31,7 @@ client.on('connect', function() {
 var noImage = fs.readFileSync(__dirname + "/images/no-image.jpg");
 
 var handshake1Arrived = false, handshake3Arrived = false;
+var clientConnected = false;
 	
 client.on('message', function(topic, message) {
     message = message.toString();
@@ -56,32 +56,36 @@ client.on('message', function(topic, message) {
 });
 
 function startStreaming() {
-    // take a picture every 100ms 
-    raspistill
-        .timelapse(100, 0, function(image) { 
-            // if there was an error send noImage
-			if(image.byteLength === 0){
-				image = noImage;
-			}
-            var data2Send = {
-				image: image,
-				time: (new Date()).getTime()
-            };
-			console.log(image);
-            client.publish('image', JSON.stringify(data2Send));
-            console.log(JSON.stringify(data2Send), 'published');
-        })
-        .then(function() {
-            console.log('Timelapse Ended');
-        })
-        .catch(function(err) {
-            console.log('Error', err);
-        });
+	clientConnected = true;
+			
+    // take a picture every 200ms 
+    raspistill.timelapse(100, 0, function(image) { 
+		if(!clientConnected){
+			raspistill.stop();
+		}
+		// if there was an error send noImage
+		if(image.byteLength === 0){
+			image = noImage;
+		}
+		var data2Send = {
+			image: image,
+			time: (new Date()).getTime()
+		};
+		// console.log(image);
+		client.publish('image', JSON.stringify(data2Send));
+		// console.log(JSON.stringify(data2Send), 'published');
+	})
+	.then(function() {
+		console.log('Timelapse Ended');
+	})
+	.catch(function(err) {
+		console.log('Error', err);
+	});
     
 }
 
 function stopStreaming(){
-	raspistill.stop();
+	clientConnected = false;
 }
 
 
