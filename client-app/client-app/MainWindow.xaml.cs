@@ -16,7 +16,8 @@ namespace client_app
         MqttClient MqttClient; // client interface to handle MQTT communication
         string clientId;
         public static string macPi = "b8-27-eb-df-ac-b7"; // MAC address of raspberry PI
-        System.Timers.Timer connectionTimer;
+        System.Timers.Timer connectionToBrokerTimer;
+        System.Timers.Timer tryHandshakeTimer;
         System.Timers.Timer timeoutConnection; 
         SemaphoreSlim timeoutConnectionSemaphore = new SemaphoreSlim(1, 1); // semaphore to handle the access to the timeoutConnection Timer
         int numDots = 0;
@@ -26,10 +27,16 @@ namespace client_app
             InitializeComponent();
             
             // connectionTimer initializiation 
-            connectionTimer = new System.Timers.Timer(1000);
-            connectionTimer.Elapsed += connectionTimer_Elapsed;
-            connectionTimer.AutoReset = true;
-            connectionTimer.Enabled = false;
+            connectionToBrokerTimer = new System.Timers.Timer(1000);
+            connectionToBrokerTimer.Elapsed += connectionToBrokerTimer_Elapsed;
+            connectionToBrokerTimer.AutoReset = true;
+            connectionToBrokerTimer.Enabled = false;
+
+            // tryHandshakeTimer initializiation 
+            tryHandshakeTimer = new System.Timers.Timer(1000);
+            tryHandshakeTimer.Elapsed += tryHandshakeTimer_Elapsed;
+            tryHandshakeTimer.AutoReset = true;
+            tryHandshakeTimer.Enabled = false;
 
             // timeoutConnection initializiation
             timeoutConnection = new System.Timers.Timer(10000);
@@ -38,8 +45,9 @@ namespace client_app
             timeoutConnection.Enabled = false;
         }
 
+
         // try to connect to Raspberry PI every 1 sec 
-        protected void connectionTimer_Elapsed(object source, ElapsedEventArgs e)
+        protected void connectionToBrokerTimer_Elapsed(object source, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(delegate
             {
@@ -60,14 +68,15 @@ namespace client_app
                 string BrokerAddress = IPMACMapper.FindIPFromMacAddress(macPi);
 
                 // connect to the MQTT broker
+                // MqttClient = new MqttClient(BrokerAddress, 8883, false, MqttSslProtocols.None, null, null);
                 MqttClient = new MqttClient(BrokerAddress, 8883, false, MqttSslProtocols.None, null, null);
                 MqttClient.MqttMsgPublishReceived += MqttClient_MqttMsgPublishReceived;
                 clientId = Guid.NewGuid().ToString();
                 MqttClient.Connect(clientId, clientId, clientId);
 
                 // if everything went fine start handshake phase
-                connectionTimer.Stop();
-                Handshake();
+                connectionToBrokerTimer.Stop();
+                tryHandshakeTimer.Start();
             }
             catch (Exception)
             {
@@ -75,39 +84,54 @@ namespace client_app
             }
         }
 
-        // handshake phase
-        protected void Handshake()
+
+        // try handshake phase every 1 sec
+        protected void tryHandshakeTimer_Elapsed(object source, ElapsedEventArgs e)
         {
-            MqttClient.Subscribe(new string[] { "image", "client-app" }, new byte[] { 0, 0 });
-
-            //start three-way handshake phase
-            MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("handshake1"));
-
-            timeoutConnection.Start();
-        }
-
-        // check if no messages are sent by the PI for 10 sec 
-        protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
-        {
-            // warn the user that he should restart the pi
             Dispatcher.Invoke(delegate
             {
-                PiImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ErroreDiConnessione.png"));
-            }); 
-
-            // reconnect
+                numDots++;
+                if (numDots == 4)
+                {
+                    numDots = 0;
+                    LoadingLabel.Content = "Connessione in corso";
+                }
+                else
+                {
+                    LoadingLabel.Content += ".";
+                }
+            });
             try
             {
-                MqttClient.Disconnect();
+                MqttClient.Subscribe(new string[] { "image", "client-app" }, new byte[] { 0, 0 });
+
+                //start three-way handshake phase
+                MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("handshake1"));
             }
-            catch (Exception) { }
-            connectionTimer.Start();
+            catch (Exception)
+            {
+                tryHandshakeTimer.Stop();
+                DisconnectFromPi();
+                ConnectToPi();
+            }
         }
-       
-
-
-        protected override void OnClosed(EventArgs e)
+        
+        protected void ConnectToPi()
         {
+            Dispatcher.Invoke(delegate
+            {
+                LoadingLabel.Content = "Connessione in corso";
+            });
+            connectionToBrokerTimer.Start();
+        }
+        protected void DisconnectFromPi()
+        {
+            Dispatcher.Invoke(delegate
+            {
+                DateTimeLabel.Content = "";
+                PiImage.Source = null;
+            });
+
             try
             {
                 //start reversed one-way handshake phase
@@ -115,6 +139,29 @@ namespace client_app
                 MqttClient.Disconnect();
             }
             catch (Exception) { }
+        }
+
+        // check if no messages are sent by the PI for 10 sec 
+        protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
+        {
+            DisconnectFromPi();
+            // warn the user that he should restart the pi
+            Dispatcher.Invoke(delegate
+            {
+                PiImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/ErroreDiConnessione.png"));
+            });
+
+            // reconnect
+            ConnectToPi();
+        }
+
+
+       
+
+
+        protected override void OnClosed(EventArgs e)
+        {
+            DisconnectFromPi();
 
             // finally close the application
             base.OnClosed(e);
@@ -136,9 +183,14 @@ namespace client_app
                 case "client-app":
                     if (ReceivedMessage == "handshake2")
                     {
+                        tryHandshakeTimer.Stop();
+                        timeoutConnection.Start();
                         // third-phase of handshake, connection is open
                         MqttClient.Publish("rpi", Encoding.UTF8.GetBytes("handshake3"));
-                        LoadingLabel.Content = "";
+                        Dispatcher.Invoke(delegate
+                        {
+                            LoadingLabel.Content = "";
+                        });
                     }
                     break;
 
@@ -153,8 +205,7 @@ namespace client_app
 
                         Dispatcher.Invoke(delegate {
                             PiImage.Source = bitmapSource;
-                            DateTimeLabel.Content = RefreshDateTime(piImage.time).ToString();
-
+                            DateTimeLabel.Content = "Ricevuto il " + RefreshDateTime(piImage.time).ToString();
                         });
                     }
                     break;
@@ -166,14 +217,13 @@ namespace client_app
 
         private DateTime RefreshDateTime(long Milliseconds)
         {
-            DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0,0,DateTimeKind.Utc);
-                return StartingDateTime.AddMilliseconds(Milliseconds);
+            DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0,0, DateTimeKind.Utc);
+            return StartingDateTime.AddMilliseconds(Milliseconds);
         }
 
         private void ConnectionButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadingLabel.Content = "Connessione in corso";
-            connectionTimer.Start();
+            ConnectToPi();
         }
 
 
@@ -193,8 +243,10 @@ namespace client_app
             // if a connection was previously opened and the MAC is changed, reconnect
             if (timeoutConnection.Enabled && preMac != macPi)
             {
+                DisconnectFromPi();
+
                 timeoutConnection.Stop();
-                connectionTimer.Start();
+                ConnectToPi();
             }
             timeoutConnectionSemaphore.Release();
         }

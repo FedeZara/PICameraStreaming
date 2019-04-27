@@ -9,10 +9,10 @@
     <Grid HorizontalAlignment="Right" Width="704" Background="#FF252525">
         <!-- 640 x 480-->
         <Image HorizontalAlignment="Left" Height="480" Margin="30,24,0,0" VerticalAlignment="Top" Width="640" Name="PiImage" />
-        <Button x:Name="ConnectButton" Content="Inizia trasmissione" Click="ConnectionButton_Click" ClickMode="Release" Margin="524,522,30,20" Background="#FFDADADA" Foreground="#FF252525" FontSize="16"/>
+        <Button x:Name="ConnectButton" Content="Inizia trasmissione" Click="ConnectionButton_Click" ClickMode="Release" Margin="524,522,30,19" Background="#FFDADADA" Foreground="#FF252525" FontSize="16"/>
         <Button x:Name="MacButton" Content="Imposta MAC" Click="MacButton_Click" ClickMode="Release" RenderTransformOrigin="0.504,0.472" Margin="376,522,200,19" Background="#FFDADADA" Foreground="#FF252525" FontSize="16"/>
-        <Label HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="30,522,0,0" VerticalAlignment="Top" Width="226" Height="36" Name="DateTimeLabel" FontSize="16" Foreground="#FFDADADA"/>
-        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="160,224,162,274" Name="LoadingLabel" FontSize="36" Foreground="#FFDADADA" HorizontalAlignment="Left"/>
+        <Label Padding="0" VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Margin="30,522,0,0" VerticalAlignment="Top" Width="304" Height="36" Name="DateTimeLabel" FontSize="16" Foreground="#FFDADADA"/>
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,210,0,288" Name="LoadingLabel" FontSize="36" Foreground="#FFDADADA" HorizontalAlignment="Left" Width="704"/>
     </Grid>
 
 </Window>
