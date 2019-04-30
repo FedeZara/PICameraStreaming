@@ -13,13 +13,13 @@ This project consists of three components:
 
 The MQTT server runs on the Raspberry Pi and listens to the default port 8883. 
 The server is created using [Mosca](https://github.com/mcollina/mosca).
-The configuration file is <i>index.js</i> inside <i>broker</i> folder.
+The configuration file is <i>index.js</i> inside the <i>broker</i> folder.
 
 ### Raspberry Pi
 
 The client side running on the Raspberry Pi is a [Node.js](https://nodejs.org/it/) script. 
 It's a never-ending program that, after initialization and connection to the broker, waits for communication from the Client App.
-After connection is established (using three-way handshake method), the script takes a photo (320x240 resolution) from the Pi Camera every 200ms and send it, together with the time it was taken, to the Client app through the broker.
+After connection is established (using three-way handshake method), the script takes a photo (320x240 pixels of resolution) from the Pi Camera every 2 tenths of a second and send it, together with the time it was taken, to the Client app through the broker.
 
 The script makes use of two main npm packages:
 - [mqtt](https://www.npmjs.com/package/mqtt)
