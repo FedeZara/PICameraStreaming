@@ -19,7 +19,7 @@ The configuration file is <i>index.js</i> inside the <i>broker</i> folder.
 
 The client side running on the Raspberry Pi is a [Node.js](https://nodejs.org/it/) script. 
 It's a never-ending program that, after initialization and connection to the broker, waits for communication from the Client App.
-After connection is established (using three-way handshake method), the script takes a photo (320x240 pixels of resolution) from the Pi Camera every 2 tenths of a second and send it, together with the time it was taken, to the Client app through the broker.
+After connection is established (using three-way handshake method), the script takes a photo (320x240 pixels of resolution) from the Pi Camera every fifth of a second and sends it, together with the time it was taken, to the Client app through the broker.
 
 The script makes use of two main npm packages:
 - [mqtt](https://www.npmjs.com/package/mqtt)
