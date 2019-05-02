@@ -46,7 +46,11 @@ The Client App has three different phases:
 
 ## Authors
 
-- <b> Federico Zarantonello </b> - <i> Team leader, project ideator, responsible for the communication between Raspberry Pi and Windows App </i> - [FedeZara](https://github.com/FedeZara)
+- <b> Federico Zarantonello </b> - [FedeZara](https://github.com/FedeZara) - <i> Team leader, project ideator, responsible for the UML Sequence Diagram, the Windows App, the Raspberry script and the connection/communication between the Raspberry Pi and the Windows App </i> 
+- <b> Nicolò Chiarello </b> - [ChiarelloNicolo](https://github.com/ChiarelloNicolo) - <i> Responsible for the documentation and for some logic behind the Windows App </i>  
+- <b> Alessandro Marchetti </b> - [AlessandroMarche](https://github.com/AlessandroMarche) - <i> Responsible for the UML Class Diagram and for some logic behind the Windows App </i> 
+- <b> Enrico Catelli </b> - [HexaBit64](https://github.com/HexaBit64) - <i> Responsible for the project illustrations and for the Windows App GUI </i>
+- <b> Enrico Calabrese </b> - [LapuGitHub](https://github.com/LapuGitHub) - <i> Responsible for the UML Use Cases Diagram and for the Raspberry script </i> 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
