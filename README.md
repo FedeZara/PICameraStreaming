@@ -35,6 +35,15 @@ The Client App has three different phases:
 - Three-way handshake: once connected to the broker, the Client App tries to start a connection with the client script running on the Pi using three-way handshake. The Client App sends the first message and waits for a response: if it arrives, communication is considered established, otherwise after 1 second a new handshake phase begins.
 - Photo streaming: the Client App displays the images coming from the Pi. If no message arrives after 10 seconds, the app suggests restarting the Pi.
 
+## Photos
+
+###Before connection
+![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image1.jpeg)
+
+###Streaming
+![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image2.jpeg)
+![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image3.png)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
