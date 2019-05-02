@@ -44,6 +44,10 @@ The Client App has three different phases:
 ![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image2.jpeg)
 ![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image3.png)
 
+## Authors
+
+- <b> Federico Zarantonello </b> - <i> Team leader, project ideator, responsible for the communication between Raspberry Pi and Windows App </i> - [FedeZara](https://github.com/FedeZara)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
