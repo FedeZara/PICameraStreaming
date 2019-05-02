@@ -37,10 +37,10 @@ The Client App has three different phases:
 
 ## Photos
 
-###Before connection
+### Before connection
 ![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image1.jpeg)
 
-###Streaming
+### Streaming
 ![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image2.jpeg)
 ![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image3.png)
 
