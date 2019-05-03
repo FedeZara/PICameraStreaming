@@ -30,7 +30,7 @@ client.on('connect', function() {
 // load noImage 
 var noImage = fs.readFileSync(__dirname + "/images/no-image.jpg");
 
-var handshake1Arrived = false, handshake3Arrived = false;
+var handshake1Arrived = false;
 var clientConnected = false;
 	
 client.on('message', function(topic, message) {
@@ -42,10 +42,8 @@ client.on('message', function(topic, message) {
 			client.publish('client-app', 'handshake2');
 		}
 		else if(message === 'handshake3' && handshake1Arrived){
-			handshake3Arrived = true;
 			startStreaming();
 			handshake1Arrived = false;
-			handshake3Arrived = false;
 		}
 		else if(message === 'rhandshake'){	
 			stopStreaming();
