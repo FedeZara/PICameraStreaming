@@ -28,7 +28,7 @@ The script makes use of two main npm packages:
 
 ### Windows Client App
 
-The Windows Client App is a WPF Visual Studio project. Its main purpouse is to show to the user the photo stream coming from the Raspberry Pi. To connect to the Raspberry, its MAC address is required. Once it is provided, the user can start the stream.
+The Windows Client App is a WPF Visual Studio project. Its main purpose is to show to the user the photo stream coming from the Raspberry Pi. To connect to the Raspberry, its MAC address is required. Once it is provided, the user can start the stream.
 
 The Client App has three different phases:
 - Connection to the broker: in this phase the Client App tries to connect to the MQTT broker. A connection is attempted every second.
@@ -43,6 +43,14 @@ The Client App has three different phases:
 ### Streaming
 ![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image2.jpeg)
 ![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image3.png)
+
+## Authors
+
+- <b> Federico Zarantonello </b> - [FedeZara](https://github.com/FedeZara) - <i> Team leader, project ideator, responsible for the UML Sequence Diagram, the Windows App, the Raspberry script and the connection/communication between the Raspberry Pi and the Windows App </i> 
+- <b> Nicolò Chiarello </b> - [ChiarelloNicolo](https://github.com/ChiarelloNicolo) - <i> Responsible for the documentation and for some logic behind the Windows App </i>  
+- <b> Alessandro Marchetti </b> - [AlessandroMarche](https://github.com/AlessandroMarche) - <i> Responsible for the UML Class Diagram and for some logic behind the Windows App </i> 
+- <b> Enrico Catelli </b> - [HexaBit64](https://github.com/HexaBit64) - <i> Responsible for the project illustrations and for the Windows App GUI </i>
+- <b> Enrico Calabrese </b> - [LapuGitHub](https://github.com/LapuGitHub) - <i> Responsible for the UML Use Cases Diagram and for the Raspberry script </i> 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
