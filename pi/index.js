@@ -56,7 +56,7 @@ client.on('message', function(topic, message) {
 function startStreaming() {
 	clientConnected = true;			
     // take a picture every 200ms 
-    raspistill.timelapse(100, 0, function(image) { 
+    raspistill.timelapse(200, 0, function(image) { 
 		if(!clientConnected){
 			raspistill.stop();
 		}
@@ -68,9 +68,7 @@ function startStreaming() {
 			image: image,
 			time: (new Date()).getTime()
 		};
-		// console.log(image);
 		client.publish('image', JSON.stringify(data2Send));
-		// console.log(JSON.stringify(data2Send), 'published');
 	})
 	.then(function() {
 		console.log('Timelapse Ended');
