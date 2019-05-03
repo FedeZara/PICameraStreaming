@@ -28,7 +28,7 @@ The script makes use of two main npm packages:
 
 ### Windows Client App
 
-The Windows Client App is a WPF Visual Studio project. Its main purpouse is to show to the user the photo stream coming from the Raspberry Pi. To connect to the Raspberry, its MAC address is required. Once it is provided, the user can start the stream.
+The Windows Client App is a WPF Visual Studio project. Its main purpose is to show to the user the photo stream coming from the Raspberry Pi. To connect to the Raspberry, its MAC address is required. Once it is provided, the user can start the stream.
 
 The Client App has three different phases:
 - Connection to the broker: in this phase the Client App tries to connect to the MQTT broker. A connection is attempted every second.
