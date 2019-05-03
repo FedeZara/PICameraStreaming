@@ -54,8 +54,7 @@ client.on('message', function(topic, message) {
 });
 
 function startStreaming() {
-	clientConnected = true;
-			
+	clientConnected = true;			
     // take a picture every 200ms 
     raspistill.timelapse(100, 0, function(image) { 
 		if(!clientConnected){
@@ -79,7 +78,6 @@ function startStreaming() {
 	.catch(function(err) {
 		console.log('Error', err);
 	});
-    
 }
 
 function stopStreaming(){
