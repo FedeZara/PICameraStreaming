@@ -1,0 +1,121 @@
+\hypertarget{classclient__app_1_1_main_window}{}\section{Riferimenti per la classe client\+\_\+app.\+Main\+Window}
+\label{classclient__app_1_1_main_window}\index{client\_app.MainWindow@{client\_app.MainWindow}}
+
+
+Classe della finestra principale.  
+
+
+Diagramma delle classi per client\+\_\+app.\+Main\+Window\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classclient__app_1_1_main_window}
+\end{center}
+\end{figure}
+\subsection*{Membri pubblici}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a72146235a48ccf44248dcf856c23ec4f}\label{classclient__app_1_1_main_window_a72146235a48ccf44248dcf856c23ec4f}} 
+\mbox{\hyperlink{classclient__app_1_1_main_window_a72146235a48ccf44248dcf856c23ec4f}{Main\+Window}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore con l\textquotesingle{}inizializzazione dei vari timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Attributi pubblici}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_ad82e43e2a75e19266cc6c5955b56ddd7}\label{classclient__app_1_1_main_window_ad82e43e2a75e19266cc6c5955b56ddd7}} 
+string \mbox{\hyperlink{classclient__app_1_1_main_window_ad82e43e2a75e19266cc6c5955b56ddd7}{pre\+Mac}}
+\begin{DoxyCompactList}\small\item\em M\+AC precedente. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Attributi pubblici statici}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a345948e37978ea2565f3eb2913494c5c}\label{classclient__app_1_1_main_window_a345948e37978ea2565f3eb2913494c5c}} 
+static string \mbox{\hyperlink{classclient__app_1_1_main_window_a345948e37978ea2565f3eb2913494c5c}{mac\+Pi}} = \char`\"{}b8-\/27-\/eb-\/df-\/ac-\/b7\char`\"{}
+\begin{DoxyCompactList}\small\item\em M\+AC della Raspberry (è settato di default alla rasberry che abbiamo solitamente usato per i test) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Membri protetti}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a8cbc8fb4ae206e8fb22dd1485dbcdda6}\label{classclient__app_1_1_main_window_a8cbc8fb4ae206e8fb22dd1485dbcdda6}} 
+void \mbox{\hyperlink{classclient__app_1_1_main_window_a8cbc8fb4ae206e8fb22dd1485dbcdda6}{connection\+To\+Broker\+Timer\+\_\+\+Elapsed}} (object source, Elapsed\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Tentativo di connessione alla Raspberry ogni 1 secondo. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a111d94def783172d78c8483403add41c}\label{classclient__app_1_1_main_window_a111d94def783172d78c8483403add41c}} 
+void \mbox{\hyperlink{classclient__app_1_1_main_window_a111d94def783172d78c8483403add41c}{try\+Handshake\+Timer\+\_\+\+Elapsed}} (object source, Elapsed\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Tentativo di inizio di una fase di handshake ogni 1 secondo. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a6a3389d7cea8d48931fbffb7314ebd38}\label{classclient__app_1_1_main_window_a6a3389d7cea8d48931fbffb7314ebd38}} 
+void \mbox{\hyperlink{classclient__app_1_1_main_window_a6a3389d7cea8d48931fbffb7314ebd38}{Connect\+To\+Pi}} ()
+\begin{DoxyCompactList}\small\item\em Tentativo di connessione alla raspberry. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_afe203851a4866717ef54cc12db4e61ad}\label{classclient__app_1_1_main_window_afe203851a4866717ef54cc12db4e61ad}} 
+void \mbox{\hyperlink{classclient__app_1_1_main_window_afe203851a4866717ef54cc12db4e61ad}{Disconnect\+From\+Pi}} ()
+\begin{DoxyCompactList}\small\item\em Disconnessione dalla raspberry. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_ab9edbb0a6d6202faa6463079a8d75cf5}\label{classclient__app_1_1_main_window_ab9edbb0a6d6202faa6463079a8d75cf5}} 
+void \mbox{\hyperlink{classclient__app_1_1_main_window_ab9edbb0a6d6202faa6463079a8d75cf5}{timeout\+Connection\+\_\+\+Elapsed}} (object source, Elapsed\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Controlle se non sono stati inviati messaggi dalla raspberry per 10. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a0be8c9631369528d985da0a10bf76996}\label{classclient__app_1_1_main_window_a0be8c9631369528d985da0a10bf76996}} 
+override void \mbox{\hyperlink{classclient__app_1_1_main_window_a0be8c9631369528d985da0a10bf76996}{On\+Closed}} (Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Alla chiusura dell\textquotesingle{}app chiude la connessione alla raspberry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Membri privati}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a6e80a62bc23dfd09f691d94461abc62f}\label{classclient__app_1_1_main_window_a6e80a62bc23dfd09f691d94461abc62f}} 
+async void \mbox{\hyperlink{classclient__app_1_1_main_window_a6e80a62bc23dfd09f691d94461abc62f}{Mqtt\+Client\+\_\+\+Mqtt\+Msg\+Publish\+Received}} (object sender, Mqtt\+Msg\+Publish\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Handler dell\textquotesingle{}arrivo di un messaggio. \end{DoxyCompactList}\item 
+Date\+Time \mbox{\hyperlink{classclient__app_1_1_main_window_aed5a74551edec2ad387d85b8b883597d}{Refresh\+Date\+Time}} (long Milliseconds)
+\begin{DoxyCompactList}\small\item\em Converte una data in Unix\+Time(millisecondi dalla mezzanotte del 1-\/1-\/1970) in una data formato stringa. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_ab49d6cb430735fe596f1a9960dbd40b8}\label{classclient__app_1_1_main_window_ab49d6cb430735fe596f1a9960dbd40b8}} 
+void \mbox{\hyperlink{classclient__app_1_1_main_window_ab49d6cb430735fe596f1a9960dbd40b8}{Connection\+Button\+\_\+\+Click}} (object sender, Routed\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Gestisce la pressione del bottone di connessione. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a8737e8fbbd32fb2664313a25652c7eb4}\label{classclient__app_1_1_main_window_a8737e8fbbd32fb2664313a25652c7eb4}} 
+void \mbox{\hyperlink{classclient__app_1_1_main_window_a8737e8fbbd32fb2664313a25652c7eb4}{Mac\+Button\+\_\+\+Click}} (object sender, Routed\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Handler per la pressione sul bottone \char`\"{}\+Imposta M\+A\+C\char`\"{}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a7d895d3e99744774886008f8f63ee927}\label{classclient__app_1_1_main_window_a7d895d3e99744774886008f8f63ee927}} 
+async void \mbox{\hyperlink{classclient__app_1_1_main_window_a7d895d3e99744774886008f8f63ee927}{Window\+M\+A\+C\+\_\+\+Closed}} (object sender, Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Handler per la chiusura della finestra per il M\+AC. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Attributi privati}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a5bf5113d0b65e37a071f971870701555}\label{classclient__app_1_1_main_window_a5bf5113d0b65e37a071f971870701555}} 
+Mqtt\+Client \mbox{\hyperlink{classclient__app_1_1_main_window_a5bf5113d0b65e37a071f971870701555}{Mqtt\+Client}}
+\begin{DoxyCompactList}\small\item\em Interfaccia client per gestire la comunicazione con il broker. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_acbb00036f865b3e1df49a1ca8194df63}\label{classclient__app_1_1_main_window_acbb00036f865b3e1df49a1ca8194df63}} 
+string {\bfseries client\+Id}
+\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a9a1dcb37ef0934de257903c6f0596ce2}\label{classclient__app_1_1_main_window_a9a1dcb37ef0934de257903c6f0596ce2}} 
+System.\+Timers.\+Timer \mbox{\hyperlink{classclient__app_1_1_main_window_a9a1dcb37ef0934de257903c6f0596ce2}{connection\+To\+Broker\+Timer}}
+\begin{DoxyCompactList}\small\item\em Timer per la connessione al broker. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_a3f18ece6505f93de4e612c576de136da}\label{classclient__app_1_1_main_window_a3f18ece6505f93de4e612c576de136da}} 
+System.\+Timers.\+Timer \mbox{\hyperlink{classclient__app_1_1_main_window_a3f18ece6505f93de4e612c576de136da}{try\+Handshake\+Timer}}
+\begin{DoxyCompactList}\small\item\em Timeout di risposta per la fase handshake. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_aea05e8f1a08706b06e0eab8131d02fd7}\label{classclient__app_1_1_main_window_aea05e8f1a08706b06e0eab8131d02fd7}} 
+System.\+Timers.\+Timer \mbox{\hyperlink{classclient__app_1_1_main_window_aea05e8f1a08706b06e0eab8131d02fd7}{timeout\+Connection}}
+\begin{DoxyCompactList}\small\item\em Timer per la mancanza di connessione. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_aacba1479299c1ed873de496771f7905b}\label{classclient__app_1_1_main_window_aacba1479299c1ed873de496771f7905b}} 
+Semaphore\+Slim \mbox{\hyperlink{classclient__app_1_1_main_window_aacba1479299c1ed873de496771f7905b}{timeout\+Connection\+Semaphore}} = new Semaphore\+Slim(1, 1)
+\begin{DoxyCompactList}\small\item\em Gestisce l\textquotesingle{}accesso al timer timeout\+Connection\+Semaphore. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classclient__app_1_1_main_window_ad0a147dfb37d39e6885d5bf1371f47fe}\label{classclient__app_1_1_main_window_ad0a147dfb37d39e6885d5bf1371f47fe}} 
+int \mbox{\hyperlink{classclient__app_1_1_main_window_ad0a147dfb37d39e6885d5bf1371f47fe}{num\+Dots}} = 0
+\begin{DoxyCompactList}\small\item\em Numero di punti dopo scritta \char`\"{}\+Connessione in corso\char`\"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrizione dettagliata}
+Classe della finestra principale. 
+
+\subsection{Documentazione delle funzioni membro}
+\mbox{\Hypertarget{classclient__app_1_1_main_window_aed5a74551edec2ad387d85b8b883597d}\label{classclient__app_1_1_main_window_aed5a74551edec2ad387d85b8b883597d}} 
+\index{client\_app.MainWindow@{client\_app.MainWindow}!RefreshDateTime@{RefreshDateTime}}
+\index{RefreshDateTime@{RefreshDateTime}!client\_app.MainWindow@{client\_app.MainWindow}}
+\subsubsection{\texorpdfstring{RefreshDateTime()}{RefreshDateTime()}}
+{\footnotesize\ttfamily client\+\_\+app.\+Main\+Window.\+Refresh\+Date\+Time (\begin{DoxyParamCaption}\item[{long}]{Milliseconds }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Converte una data in Unix\+Time(millisecondi dalla mezzanotte del 1-\/1-\/1970) in una data formato stringa. 
+
+
+\begin{DoxyParams}[1]{Parametri}
+\mbox{\texttt{ in}}  & {\em Milliseconds} & = Data in Unix\+Time \\
+\hline
+\mbox{\texttt{ out}}  & {\em Data} & formato convenzionale \\
+\hline
+\end{DoxyParams}
+
+
+La documentazione per questa classe è stata generata a partire dal seguente file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Acer/\+Desktop/\+T\+P\+S\+I\+T-\/\+I\+O\+T/client-\/app/client-\/app/\mbox{\hyperlink{_main_window_8xaml_8cs}{Main\+Window.\+xaml.\+cs}}\end{DoxyCompactItemize}

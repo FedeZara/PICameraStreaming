@@ -14,12 +14,12 @@ namespace client_app
 {
     /*!
     \class IPMACMapper
-    \brief Classe che permette il recupero di un indirizzo IP da un indirizzo MAC
+    \brief Classe che permette il recupero di un indirizzo IP da un indirizzo MAC e viceversa
     */
     public static class IPMACMapper
     {
-        //*! \var list
-        //*! \brief Lista contenente oggetti di tipo IPandMac
+        //! \var list
+        //! \brief Lista contenente oggetti di tipo IPandMac
         private static List<IPAndMac> list;
         /*!
         \fn ExecuteCommandLine
@@ -68,7 +68,7 @@ namespace client_app
         }
         /*!
        \fn FindIPFromMacAddress
-       \brief Ritorna un IP associato ad un mac fornito
+       \brief Ritorna un IP associato ad un MAC fornito
        \param[in] macAddress = Indirizzo MAC da cui si vuole trovare l'ip
        \param[out] item.IP = IP associato all'indirizzo MAC fornito
        */
@@ -80,13 +80,13 @@ namespace client_app
                 return null;
             return item.IP;
         }
-        /*!
-     \fn FindMacFromIPAddress
-     \brief Ritorna un MAC associato ad un IP fornito
-     \param[in] ip = Indirizzo ip da cui si vuole trovare il MAC
-     \param[out] item.MAC = MAC associato all'indirizzo IP fornito
-     */
 
+         /*!
+         \fn FindMacFromIPAddress
+         \brief Ritorna un MAC associato ad un IP fornito
+         \param[in] ip = Indirizzo ip da cui si vuole trovare il MAC
+         \param[out] item.MAC = MAC associato all'indirizzo IP fornito
+         */
         public static string FindMacFromIPAddress(string ip)
         {
             InitializeGetIPsAndMac();
@@ -98,11 +98,11 @@ namespace client_app
 
         private class IPAndMac
         {
-            //*! \var IP
-            //*! \brief Proprietà(stringa) della classe che contiene l'ip
+            //! \var IP
+            //! \brief Proprietà(stringa) della classe che contiene l'ip
             public string IP { get; set; }
-            //*! \var MAC
-            //*! \brief Proprietà(stringa) della classe che contiene il MAC
+            //! \var MAC
+            //! \brief Proprietà(stringa) della classe che contiene il MAC
             public string MAC { get; set; }
         }
 
