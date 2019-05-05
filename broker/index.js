@@ -1,3 +1,6 @@
+//*! \file index.js
+//*! version 1.0
+
 module.exports = {
     id: 'broker',
     stats: false,

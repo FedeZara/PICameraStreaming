@@ -1,3 +1,7 @@
+/*!
+ \file index.js
+ \version 1.0
+ */
 var config = require('./config.js');
 var mqtt = require('mqtt');
 var Raspistill = require('node-raspistill').Raspistill;
@@ -10,7 +14,7 @@ var raspistill = new Raspistill({
     height: 240
 });
 
-// connect to MQTT broker
+//*! \brief Connessione al broker MQTT
 var client = mqtt.connect({
     port: config.mqtt.port,
     protocol: 'mqtt',
@@ -27,7 +31,7 @@ client.on('connect', function() {
     client.subscribe('rpi');
 });
 
-// load noImage 
+//*! \brief Carica noImage
 var noImage = fs.readFileSync(__dirname + "/images/no-image.jpg");
 
 var handshake1Arrived = false;
@@ -53,6 +57,8 @@ client.on('message', function(topic, message) {
     }
 });
 
+//*! \fn startStreaming
+//*! \brief Apre la connessione e prende un immagine ogni 200ms
 function startStreaming() {
 	clientConnected = true;			
     // take a picture every 200ms 
@@ -77,7 +83,8 @@ function startStreaming() {
 		console.log('Error', err);
 	});
 }
-
+//*! \fn stopStraming
+//*! \brief Interrompe la connessione
 function stopStreaming(){
 	clientConnected = false;
 }
