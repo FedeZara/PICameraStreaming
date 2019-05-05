@@ -52,7 +52,9 @@ namespace client_app
         {
             if (list != null)
                 return;
-
+            
+            //! var arpStream
+            //! \brief variabile per l'esecuzione del comando arp
             var arpStream = ExecuteCommandLine("arp", "-a");
             List<string> result = new List<string>();
             while (!arpStream.EndOfStream)
