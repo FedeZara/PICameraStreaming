@@ -34,6 +34,7 @@ namespace client_app
             InitializeComponent();
             MACadd.Text = MainWindow.macPi;
         }
+
         //! \fn Click
         //! \brief Nel caso il MAC inserito sia valido viene salvato, altrimenti si chiede all'utente di inserirne un altro
         void Click(object sender, RoutedEventArgs e)
@@ -48,6 +49,7 @@ namespace client_app
                 Close();
             }
         }
+
         /*!
           \fn MACValido
           \brief Controlla la validità di un MAC fornito

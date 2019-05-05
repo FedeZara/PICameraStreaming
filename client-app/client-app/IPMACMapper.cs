@@ -21,6 +21,7 @@ namespace client_app
         //! \var list
         //! \brief Lista contenente oggetti di tipo IPandMac
         private static List<IPAndMac> list;
+
         /*!
         \fn ExecuteCommandLine
         \brief Esegue un comando cmd e ne ritorna un eventuale output
@@ -42,6 +43,7 @@ namespace client_app
 
             return process.StandardOutput;
         }
+
         /*!
         \fn InitializeGetIPsAndMac
         \brief Utilizza il comando arp per effettuare un mappatura IP e MAC, salvandone poi il risultato in list
@@ -66,11 +68,12 @@ namespace client_app
                     return new IPAndMac { IP = parts[0].Trim(), MAC = parts[1].Trim() };
                 }).ToList();
         }
+
         /*!
-       \fn FindIPFromMacAddress
-       \brief Ritorna un IP associato ad un MAC fornito
-       \param[in] macAddress = Indirizzo MAC da cui si vuole trovare l'ip
-       \param[out] item.IP = IP associato all'indirizzo MAC fornito
+           \fn FindIPFromMacAddress
+           \brief Ritorna un IP associato ad un MAC fornito
+           \param[in] macAddress = Indirizzo MAC da cui si vuole trovare l'ip
+           \param[out] item.IP = IP associato all'indirizzo MAC fornito
        */
         public static string FindIPFromMacAddress(string macAddress)
         {
@@ -81,12 +84,12 @@ namespace client_app
             return item.IP;
         }
 
-         /*!
-         \fn FindMacFromIPAddress
-         \brief Ritorna un MAC associato ad un IP fornito
-         \param[in] ip = Indirizzo ip da cui si vuole trovare il MAC
-         \param[out] item.MAC = MAC associato all'indirizzo IP fornito
-         */
+        /*!
+            \fn FindMacFromIPAddress
+            \brief Ritorna un MAC associato ad un IP fornito
+            \param[in] ip = Indirizzo ip da cui si vuole trovare il MAC
+            \param[out] item.MAC = MAC associato all'indirizzo IP fornito
+        */
         public static string FindMacFromIPAddress(string ip)
         {
             InitializeGetIPsAndMac();
@@ -101,6 +104,7 @@ namespace client_app
             //! \var IP
             //! \brief Proprietà(stringa) della classe che contiene l'ip
             public string IP { get; set; }
+
             //! \var MAC
             //! \brief Proprietà(stringa) della classe che contiene il MAC
             public string MAC { get; set; }

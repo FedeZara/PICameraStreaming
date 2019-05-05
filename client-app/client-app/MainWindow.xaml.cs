@@ -24,26 +24,34 @@ namespace client_app
         //! \var MqttClient
         //! \brief Interfaccia client per gestire la comunicazione con il broker
         MqttClient MqttClient;
+
         //! \var clientId
         string clientId;
+
         //! \var macPi
         //! \brief MAC della Raspberry (è settato di default alla rasberry che abbiamo solitamente usato per i test)
         public static string macPi = "b8-27-eb-df-ac-b7";
+
         //! \var connectionToBrokerTimer
         //! \brief Timer per la connessione al broker
         System.Timers.Timer connectionToBrokerTimer;
+
         //! \var tryHandshakeTimer
         //! \brief Timeout di risposta per la fase handshake
         System.Timers.Timer tryHandshakeTimer;
+
         //! \var timeoutConnection
         //! \brief Timer per la mancanza di connessione
         System.Timers.Timer timeoutConnection;
+
         //! \var timeoutConnectionSemaphore
         //! \brief Gestisce l'accesso al timer timeoutConnectionSemaphore
         SemaphoreSlim timeoutConnectionSemaphore = new SemaphoreSlim(1, 1); // semaphore to handle the access to the timeoutConnection Timer
+
         //! \var numDots
         //! \brief Numero di punti dopo scritta "Connessione in corso" 
         int numDots = 0;
+
         //! \fn MainWindow
         //! \brief Costruttore con l'inizializzazione dei vari timer
         public MainWindow()
@@ -94,7 +102,6 @@ namespace client_app
                 string BrokerAddress = IPMACMapper.FindIPFromMacAddress(macPi);
 
                 // connect to the MQTT broker
-                // MqttClient = new MqttClient(BrokerAddress, 8883, false, MqttSslProtocols.None, null, null);
                 MqttClient = new MqttClient(BrokerAddress, 8883, false, MqttSslProtocols.None, null, null);
                 MqttClient.MqttMsgPublishReceived += MqttClient_MqttMsgPublishReceived;
                 clientId = Guid.NewGuid().ToString();
@@ -143,6 +150,7 @@ namespace client_app
                 ConnectToPi();
             }
         }
+
         //! \fn ConnectToPi
         //! \brief Tentativo di connessione alla raspberry
         protected void ConnectToPi()
@@ -153,6 +161,7 @@ namespace client_app
             });
             connectionToBrokerTimer.Start();
         }
+
         //! \fn DisconnectFromPi
         //! \brief Disconnessione dalla raspberry
         protected void DisconnectFromPi()
@@ -188,9 +197,6 @@ namespace client_app
             ConnectToPi();
         }
 
-
-
-
         //! \fn OnClosed
         //! \brief Alla chiusura dell'app chiude la connessione alla raspberry
         protected override void OnClosed(EventArgs e)
@@ -202,7 +208,6 @@ namespace client_app
             App.Current.Shutdown();
             Environment.Exit(0);
         }
-
 
         //! \fn MqttClient_MqttMsgPublishReceived
         //! \brief Handler dell'arrivo di un messaggio
@@ -251,18 +256,19 @@ namespace client_app
             timeoutConnection.Start();
             timeoutConnectionSemaphore.Release();
         }
+
         /*!
          \fn RefreshDateTime
          \brief Converte una data in UnixTime(millisecondi dalla mezzanotte del 1-1-1970) in una data formato stringa
          \param[in] Milliseconds = Data in UnixTime
          \param[out] Data formato convenzionale
          */
-
         private DateTime RefreshDateTime(long Milliseconds)
         {
             DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return StartingDateTime.AddMilliseconds(Milliseconds);
         }
+
         //! \fn ConnectionButton_Click
         //! \brief Gestisce la pressione del bottone di connessione
         private void ConnectionButton_Click(object sender, RoutedEventArgs e)
@@ -270,10 +276,10 @@ namespace client_app
             ConnectToPi();
         }
 
-
         //! \var preMac
         //! \brief MAC precedente
         public string preMac;
+
         //! \fn MacButton_Click
         //! \brief Handler per la pressione sul bottone "Imposta MAC"
         void MacButton_Click(object sender, RoutedEventArgs e)
@@ -283,6 +289,7 @@ namespace client_app
             windowMAC.Closed += WindowMAC_Closed;
             windowMAC.Show();
         }
+
         //! \fn WindowMAC_Closed
         //! \brief Handler per la chiusura della finestra per il MAC
         private async void WindowMAC_Closed(object sender, EventArgs e)
