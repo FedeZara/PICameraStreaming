@@ -11,23 +11,35 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+/*!
+\file WindowMAC.xaml.cs
+\brief Implementazione della classe parziale WindowMAC
+\version 1.0
+*/
 
 namespace client_app
 {
     /// <summary>
     /// Logica di interazione per WindowMAC.xaml
     /// </summary>
+    /// 
+    /*!
+    \class WindowMAC
+    \brief Classe per la finestra di dialogo dove inserire il MAC della Raspberry con cui si vuole comunicare
+    */
     public partial class WindowMAC : Window
     {
+        //*! \var ValoriAccettabiliMac
+        //*! \brief Lista di valori usabili nell'inserimento del MAC
         List<char> ValoriAccettabiliMac = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F' };
-
+       
         public WindowMAC()
         {
             InitializeComponent();
             MACadd.Text = MainWindow.macPi;
         }
-
+        //*! \fn Click
+        //*! \brief Nel caso il MAC inserito sia valido viene salvato, altrimenti si chiede all'utente di inserirne un altro
         void Click(object sender, RoutedEventArgs e)
         {
             if (!MACValido(MACadd.Text))
@@ -40,7 +52,12 @@ namespace client_app
                 Close();
             }
         }
-
+      /*!
+      \fn MACValido
+      \brief Controlla la validità di un MAC fornito
+      \param[in] mac = MAC di cui si vuole controllare la validità
+      \param[out] bool che indica la correttezza
+      */
         private bool MACValido(string mac)
         {
             if (mac.Length != 17)

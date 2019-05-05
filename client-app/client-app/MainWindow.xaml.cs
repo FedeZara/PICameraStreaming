@@ -8,24 +8,49 @@ using System.Timers;
 using Newtonsoft.Json;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
-
+/*!
+\file MainWindow.xaml.cs
+\brief Implementazione della classe parziale MainWindow
+\version 1.0
+*/
 namespace client_app
+
+/*!
+\class MainWindow
+\brief Classe della finestra principale
+*/
 {
     public partial class MainWindow : Window
     {
-        MqttClient MqttClient; // client interface to handle MQTT communication
+        //*! \var MqttClient
+        //*! \brief Interfaccia client per gestire la comunicazione con il broker
+        MqttClient MqttClient;
+        //*! \var clientId
         string clientId;
-        public static string macPi = "b8-27-eb-df-ac-b7"; // MAC address of raspberry PI
+        //*! \var macPi
+        //*! \brief MAC della Raspberry (è settato di default alla rasberry che abbiamo solitamente usato per i test)
+        public static string macPi = "b8-27-eb-df-ac-b7";
+        //*! \var connectionToBrokerTimer
+        //*! \brief Timer per la connessione al broker
         System.Timers.Timer connectionToBrokerTimer;
+        //*! \var tryHandshakeTimer
+        //*! \brief Timeout di risposta per la fase handshake
         System.Timers.Timer tryHandshakeTimer;
-        System.Timers.Timer timeoutConnection; 
+        //*! \var timeoutConnection
+        //*! \brief Timer per la mancanza di connessione
+        System.Timers.Timer timeoutConnection;
+        //*! \var timeoutConnectionSemaphore
+        //*! \brief Gestisce l'accesso al timer timeoutConnectionSemaphore
         SemaphoreSlim timeoutConnectionSemaphore = new SemaphoreSlim(1, 1); // semaphore to handle the access to the timeoutConnection Timer
+        //*! \var numDots
+        //*! \brief Numero di punti dopo scritta "Connessione in corso" 
         int numDots = 0;
-
+        //*! \fn MainWindow
+        //*! \brief Costruttore con l'inizzalizzazione dei vari timer
         public MainWindow()
         {
             InitializeComponent();
-            
+
             // connectionTimer initializiation 
             connectionToBrokerTimer = new System.Timers.Timer(1000);
             connectionToBrokerTimer.Elapsed += connectionToBrokerTimer_Elapsed;
@@ -46,13 +71,15 @@ namespace client_app
         }
 
 
-        // try to connect to Raspberry PI every 1 sec 
+
+        //*! \fn connectionToBrokerTimer_Elapsed
+        //*! \brief Tentativo di connessione alla Raspberry ogni 1 secondo
         protected void connectionToBrokerTimer_Elapsed(object source, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(delegate
             {
                 numDots++;
-                if(numDots == 4)
+                if (numDots == 4)
                 {
                     numDots = 0;
                     LoadingLabel.Content = "Connessione in corso";
@@ -86,6 +113,8 @@ namespace client_app
 
 
         // try handshake phase every 1 sec
+        //*! \fn tryHandshakeTimer_Elapsed
+        //*! \brief Tentativo di inizio di una fase di handshake ogni 1 secondo
         protected void tryHandshakeTimer_Elapsed(object source, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(delegate
@@ -115,7 +144,8 @@ namespace client_app
                 ConnectToPi();
             }
         }
-        
+        //*! \fn ConnectToPi
+        //*! \brief Tentativo di connessione alla raspberry
         protected void ConnectToPi()
         {
             Dispatcher.Invoke(delegate
@@ -124,6 +154,8 @@ namespace client_app
             });
             connectionToBrokerTimer.Start();
         }
+        //*! \fn DisconnectFromPi
+        //*! \brief Disconnessione dalla raspberry
         protected void DisconnectFromPi()
         {
             Dispatcher.Invoke(delegate
@@ -141,7 +173,9 @@ namespace client_app
             catch (Exception) { }
         }
 
-        // check if no messages are sent by the PI for 10 sec 
+
+        //*! \fn timeoutConnection_Elapsed
+        //*! \brief Controlle se non sono stati inviati messaggi dalla raspberry per 10
         protected void timeoutConnection_Elapsed(object source, ElapsedEventArgs e)
         {
             DisconnectFromPi();
@@ -156,9 +190,10 @@ namespace client_app
         }
 
 
-       
 
 
+        //*! \fn OnClosed
+        //*! \brief Alla chiusura dell'app chiude la connessione alla raspberry
         protected override void OnClosed(EventArgs e)
         {
             DisconnectFromPi();
@@ -169,7 +204,9 @@ namespace client_app
             Environment.Exit(0);
         }
 
-        // message arrived
+
+        //*! \fn MqttClient_MqttMsgPublishReceived
+        //*! \brief Handler dell'arrivo di un messaggio
         async void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             await timeoutConnectionSemaphore.WaitAsync();
@@ -203,7 +240,8 @@ namespace client_app
                             BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                         BitmapSource bitmapSource = decoder.Frames[0];
 
-                        Dispatcher.Invoke(delegate {
+                        Dispatcher.Invoke(delegate
+                        {
                             PiImage.Source = bitmapSource;
                             DateTimeLabel.Content = "Ricevuto il " + RefreshDateTime(piImage.time).ToString();
                         });
@@ -214,21 +252,31 @@ namespace client_app
             timeoutConnection.Start();
             timeoutConnectionSemaphore.Release();
         }
+        /*!
+         \fn RefreshDateTime
+         \brief Converte una data in UnixTime(millisecondi dalla mezzanotte del 1-1-1970) in una data formato stringa
+         \param[in] Milliseconds = Data in UnixTime
+         \param[out] Data formato convenzionale
+         */
 
         private DateTime RefreshDateTime(long Milliseconds)
         {
-            DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0,0, DateTimeKind.Utc);
+            DateTime StartingDateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return StartingDateTime.AddMilliseconds(Milliseconds);
         }
-
+        //*! \fn ConnectionButton_Click
+        //*! \brief Gestisce la pressione del bottone di connessione
         private void ConnectionButton_Click(object sender, RoutedEventArgs e)
         {
             ConnectToPi();
         }
 
 
-
-        public string preMac; // previous MAC
+        //*! \var preMac
+        //*! \brief MAC precedente
+        public string preMac;
+        //*! \fn MacButton_Click
+        //*! \brief Handler per la pressione sul bottone "Imposta MAC"
         void MacButton_Click(object sender, RoutedEventArgs e)
         {
             preMac = macPi;
@@ -236,7 +284,8 @@ namespace client_app
             windowMAC.Closed += WindowMAC_Closed;
             windowMAC.Show();
         }
-
+        //*! \fn WindowMAC_Closed
+        //*! \brief Handler per la chiusura della finestra per il MAC
         private async void WindowMAC_Closed(object sender, EventArgs e)
         {
             await timeoutConnectionSemaphore.WaitAsync();
