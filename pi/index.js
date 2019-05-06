@@ -7,6 +7,7 @@ var mqtt = require('mqtt');
 var Raspistill = require('node-raspistill').Raspistill;
 var fs = require('fs');
 
+//! \brief specifica le caratteristiche che dovrà avere l'immagine presa dalla pi camera
 var raspistill = new Raspistill({
     noFileSave: true,
     encoding: 'jpg',

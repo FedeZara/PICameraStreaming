@@ -2,12 +2,14 @@
 
 The main purpose of this project, as the name suggests, is to provide a way to stream the video from the Raspberry Pi camera to a Windows application. 
 
-## Structure
+## Scheme
 
 This project consists of three components:
 - MQTT broker using Mosca.
 - Raspberry Pi script using Node.js.
 - Windows Client app using WPF.
+
+![scheme](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/scheme.jpeg)
 
 ### MQTT Broker
 
@@ -38,11 +40,11 @@ The Client App has three different phases:
 ## Photos
 
 ### Before connection
-![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image1.jpeg)
+![image1](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image1.jpeg)
 
 ### Streaming
-![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image2.jpeg)
-![alt text](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image3.png)
+![image2](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image2.jpeg)
+![image3](https://github.com/FedeZara/PICameraStreaming/blob/master/documentation/images/image3.png)
 
 ## Authors
 
